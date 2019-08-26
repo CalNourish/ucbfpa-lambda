@@ -1,4 +1,5 @@
 # ucbfpa-lambda
+
 UC Berkeley Food Pantry: AWS Lambda Functions
 
 ## Setup Guide
@@ -35,8 +36,11 @@ Note: Deploying our function via AWS CLI is the only option. We cannot use the b
 1. Run ```aws lambda list-functions``` to see if you can reach AWS Lambda.
 2. Within the ```ucbfpa-lambda``` directory, run: ```find . -type d -exec chmod 755 {} \; && find . -type f -exec chmod 644 {} \;```. This is just a safety check to make sure all your files are readable by Lambda.
 3. To create a compressed upload file, run ```zip -r function.zip .```.
-4. Run ```aws lambda create-function --cli-connect-timeout 6000 --function-name FUNCTION_NAME_HERE --runtime nodejs10.x --role ROLE_HERE --handler index.handler --zip-file fileb://function.zip```, filling in the function name and role (this is the Role ARN you received from the earlier section). Most importantly, you must set the timeout to 6000. This is due to an ongoing bug related to the AWS CLI. It has not been fixed as of 2019-08-22.
+4. Run ```aws lambda create-function --cli-connect-timeout 6000 --function-name FUNCTION_NAME_HERE --runtime nodejs10.x --role ROLE_HERE --handler index.handler --zip-file fileb://function.zip```, filling in the function name and role (this is the Role ARN you received from the earlier section).
 5. Run ```aws lambda list-functions``` to confirm that your function is there.
+6. To update a function, run ```aws lambda update-function-code --cli-connect-timeout 6000 --function-name FUNCTION_NAME_HERE --zip-file fileb://function.zip```.
+7. To help automate the process, the script ```deployment.sh``` is available in this repo that will take care of generating the zip file, deploying to AWS Lambda and cleaning up the zip file after.
+8. On the AWS Lambda console, explore the use of environment variables to inject secrets into the app as well as the timeout settings.
 
 ### Setting up Amazon Cognito
 
@@ -55,11 +59,11 @@ Note: Deploying our function via AWS CLI is the only option. We cannot use the b
 13. To reiterate, remember the names of the two IAM roles you created for your identity pool as well as the code snippet above.
 14. Go back to the IAM console [here](https://console.aws.amazon.com/iam/).
 15. In the navigation panel on the left of the page, choose Roles.
-17. In the list of IAM roles, click on the link for the unauthenticated identities role previously created by Amazon Cognito.
-18. In the "Summary" page for this role, choose "Attach policies".
-19. In the "Attach Permissions" page for this role, search for "Lambda" and then select the check box for AWSLambdaRole.
-20. Choose "Attach policy".
-21. Repeat for the authenticated identities role.
+16. In the list of IAM roles, click on the link for the unauthenticated identities role previously created by Amazon Cognito.
+17. In the "Summary" page for this role, choose "Attach policies".
+18. In the "Attach Permissions" page for this role, search for "Lambda" and then select the check box for AWSLambdaRole.
+19. Choose "Attach policy".
+20. Repeat for the authenticated identities role.
 
 ### Setting up Amazon SDK in Browser
 
@@ -76,5 +80,6 @@ Note: Deploying our function via AWS CLI is the only option. We cannot use the b
 ## Dependencies
 
 This repository relies on the Node.js implementation of the Expo Server SDK as well as Firebase. To install, either run ```npm install``` or install separately with:
+
 - ```npm install --save firebase```
 - ```npm install --save expo-server-sdk```
