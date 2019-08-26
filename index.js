@@ -38,13 +38,24 @@ exports.handler = async (event) => {
       body: 'This is a test notification',
     };
 
-    console.log(message);
     messages.push(message);
   }
 
-  console.log(messages);
-  var tickets = await expo.sendPushNotificationsAsync(messages);
-  console.log(tickets);
+  let chunks = expo.chunkPushNotifications(messages);
+  let tickets = [];
+  for (let chunk of chunks) {
+    try {
+      let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+      console.log(ticketChunk);
+      tickets.push(...ticketChunk);
+      // NOTE: If a ticket contains an error code in ticket.details.error, you
+      // must handle it appropriately. The error codes are listed in the Expo
+      // documentation:
+      // https://docs.expo.io/versions/latest/guides/push-notifications#response-format
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const response = {
     statusCode: 200,
