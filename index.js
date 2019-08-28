@@ -34,8 +34,8 @@ exports.handler = async (event) => {
     var message = {
       to: pushToken,
       sound: 'default',
-      title: 'hello',
-      body: 'This is a test notification',
+      title: event.title,
+      body: event.message,
     };
 
     messages.push(message);
@@ -46,7 +46,6 @@ exports.handler = async (event) => {
   for (let chunk of chunks) {
     try {
       let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-      console.log(ticketChunk);
       tickets.push(...ticketChunk);
       // NOTE: If a ticket contains an error code in ticket.details.error, you
       // must handle it appropriately. The error codes are listed in the Expo
@@ -62,7 +61,6 @@ exports.handler = async (event) => {
     if (ticket.id) {
       receiptIds.push(ticket.id);
     }
-    console.log(ticket.status);
     if (ticket.status === 'error') {
       console.error(`There was an error sending a notification: ${ticket.message}`);
       if (ticket.details && tickets.details.error) {
