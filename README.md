@@ -83,3 +83,9 @@ This repository relies on the Node.js implementation of the Expo Server SDK as w
 
 - ```npm install --save firebase```
 - ```npm install --save expo-server-sdk```
+
+## Notifications: Resources
+
+- [Expo Push Notifications](https://docs.expo.io/versions/v34.0.0/guides/push-notifications/)
+- [Expo Push Notifications for Android Using FCM](https://docs.expo.io/versions/v34.0.0/guides/using-fcm/)
+- [Notification Channels](https://docs.expo.io/versions/latest/guides/notification-channels/)
