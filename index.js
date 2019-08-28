@@ -57,6 +57,42 @@ exports.handler = async (event) => {
     }
   }
 
+  let receiptIds = [];
+  for (let ticket of tickets) {
+    if (ticket.id) {
+      receiptIds.push(ticket.id);
+    }
+    console.log(ticket.status);
+    if (ticket.status === 'error') {
+      console.error(`There was an error sending a notification: ${ticket.message}`);
+      if (ticket.details && tickets.details.error) {
+        console.error(`Error code: ${tickets.details.error}`);
+      }
+    }
+  }
+
+  let receiptIdChunks = expo.chunkPushNotificationReceiptIds(receiptIds);
+  for (let chunk of receiptIdChunks) {
+    try {
+      let receipts = await expo.getPushNotificationReceiptsAsync(chunk);
+
+      // The receipts specify whether Apple or Google successfully received the
+      // notification and information about an error, if one occurred.
+      for (const [receiptId, statusJson] of Object.entries(receipts)) {
+        var status = statusJson['status'];
+        if (status === 'error') {
+          console.error(`There was an error sending a notification: ${statusJson['message']}`);
+          var detailsJson = statusJson['details'];
+          if (detailsJson && detailsJson['error']) {
+            console.error(`Error code: ${detailsJson['error']}`);
+          }
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const response = {
     statusCode: 200,
     body: JSON.stringify('Hello from Lambda!'),
