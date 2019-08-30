@@ -47,7 +47,8 @@ Note: Deploying our function via AWS CLI is the only option. We cannot use the b
 5. Run ```aws lambda list-functions``` to confirm that your function is there.
 6. To update a function, run ```aws lambda update-function-code --cli-connect-timeout 6000 --function-name FUNCTION_NAME_HERE --zip-file fileb://function.zip```.
 7. To help automate the process, the script ```deployment.sh``` is available in this repo that will take care of generating the zip file, deploying to AWS Lambda and cleaning up the zip file after.
-8. On the AWS Lambda console, explore the use of environment variables to inject secrets into the app as well as the timeout settings.
+8. If you do not provide command line arguments to ```deployment.sh``` it will deploy the test function. You must specify ```prod``` as the first argument to deploy to the prod function.
+9. On the AWS Lambda console, explore the use of environment variables to inject secrets into the app as well as the timeout settings.
 
 ### Our Functions
 
