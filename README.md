@@ -2,9 +2,16 @@
 
 UC Berkeley Food Pantry: AWS Lambda Functions
 
+## Dependencies
+
+This repository relies on the Node.js implementation of the Expo Server SDK as well as Firebase. To install, either run ```npm install``` or install separately with:
+
+- ```npm install --save firebase```
+- ```npm install --save expo-server-sdk```
+
 ## Setup Guide
 
-Ideally, perform these sections in order, unless you know what you're doing.
+These sections should be performed in order. If you are taking over this project, most of this work has been configured for you. Nevertheless, this guide is here as a step-by-step on recreating the Firebase and AWS Lambda integration from scratch.
 
 ### AWS IAM: Setting Up Your Lambda Execution Role
 
@@ -61,13 +68,6 @@ FIREBASE_CONFIG is a JSON that looks like the following:
 Finally, FIREBASE_DATABASE_URL should be set to the same URL as the ```databaseURL``` value in FIREBASE_CONFIG.
 
 Finally, the timeout settings may need adjustment. The default timeout (3 seconds) is usually not enough for even one notification request. Currently, the timeout is at 5 seconds.
-
-## Dependencies
-
-This repository relies on the Node.js implementation of the Expo Server SDK as well as Firebase. To install, either run ```npm install``` or install separately with:
-
-- ```npm install --save firebase```
-- ```npm install --save expo-server-sdk```
 
 ## Notifications: Resources
 
