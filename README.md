@@ -42,6 +42,26 @@ Note: Deploying our function via AWS CLI is the only option. We cannot use the b
 7. To help automate the process, the script ```deployment.sh``` is available in this repo that will take care of generating the zip file, deploying to AWS Lambda and cleaning up the zip file after.
 8. On the AWS Lambda console, explore the use of environment variables to inject secrets into the app as well as the timeout settings.
 
+### Our Functions
+
+This repo deploys two AWS functions, ```testSendNotification``` and ```prodSendNotification```. The code for both functions is the same. On the AWS Lambda console, you will need to set environment variables depending on the function. Both functions will have the same environment variable keys, but will have different values.
+
+GOOGLE_APPLICATION_CREDENTIALS should be set to the relative file-path of your service account JSON file.
+
+FIREBASE_CONFIG is a JSON that looks like the following:
+
+```json
+{
+    "authDomain": <INSERT VALUE HERE>,
+    "databaseURL": <INSERT VALUE HERE>,
+    "storageBucket": <INSERT VALUE HERE>
+}
+```
+
+Finally, FIREBASE_DATABASE_URL should be set to the same URL as the ```databaseURL``` value in FIREBASE_CONFIG.
+
+Finally, the timeout settings may need adjustment. The default timeout (3 seconds) is usually not enough for even one notification request. Currently, the timeout is at 5 seconds.
+
 ### Setting up Amazon Cognito
 
 1. The next few steps were taken from this guide: [Setting up Amazon Cognito and the Amazon SDK for Javascript](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-browser.html).
