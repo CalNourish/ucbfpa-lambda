@@ -6,6 +6,14 @@ UC Berkeley Food Pantry: AWS Lambda Functions
 
 Ideally, perform these sections in order, unless you know what you're doing.
 
+### AWS IAM: Setting Up Your Lambda Execution Role
+
+1. Sign in to the AWS Management Console and open the IAM console [here](https://console.aws.amazon.com/iam/).
+2. Select "Roles" -> Select "Create Role" -> Select "AWS service" and pick "AWS Lambda" -> Next: Permissions
+3. Select "AWSLambdaBasicExecutionRole" for this role -> Next: Tags -> Next: Review.
+4. Set a Role Name -> Create role.
+5. Back on the Roles page, click on your newly created role. Note your Role ARN. It should look something like this: ```arn:aws:iam::123456789012:role/role-name```. You will need this value later on!
+
 ### AWS IAM: Setting Up Your AWS CLI User
 
 1. Sign in to the AWS Management Console and open the IAM console [here](https://console.aws.amazon.com/iam/).
@@ -14,14 +22,6 @@ Ideally, perform these sections in order, unless you know what you're doing.
 4. Next: Tags -> Next: Review -> Create user.
 5. Download .csv (you will not be able to download it later). You will find your "Access Key ID" and your "Secret Access Key" in the .csv file (and also on the current page). You will need these two values later on!
 6. Close.
-
-### AWS IAM: Setting Up Your Lambda Execution Role
-
-1. Sign in to the AWS Management Console and open the IAM console [here](https://console.aws.amazon.com/iam/).
-2. Select "Roles" -> Select "Create Role" -> Select "AWS service" and pick "AWS Lambda" -> Next: Permissions
-3. Select "AWSLambdaBasicExecutionRole" for this role -> Next: Tags -> Next: Review.
-4. Set a Role Name -> Create role.
-5. Back on the Roles page, click on your newly created role. Note your Role ARN. It should look something like this: ```arn:aws:iam::123456789012:role/role-name```. You will need this value later on!
 
 ### AWS CLI: Setting Up AWS CLI
 
