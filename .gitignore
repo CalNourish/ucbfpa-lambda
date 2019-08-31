@@ -1,1 +1,11 @@
+.DS_Store
+
+.vscode/
+
 node_modules/
+
+testcalnourish-service-account.json
+prodcalnourish-service-account.json
+
+testcalnourish-firebase-config.json
+prodcalnourish-firebase-config.json
